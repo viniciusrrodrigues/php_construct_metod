@@ -91,6 +91,36 @@ class Pessoa{
         $stmt->bind_param('ssssssss', $this->nome, $this->endereco, $this->bairro, $this->cep, $this->cidade, $this->estado, $this->telefone, $this->celular);
         return $stmt->execute(); //retorno da variavel atual e execução
     }
+
+    public function listar(){
+        $sql = "SELECT * FROM pessoa";
+        $stmt = $this->conexao->getConexao()->prepare ($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $pessoas = [];
+        while($pessoa = $result->fetch_assoc()){
+             $pessoas[] = $pessoa;
+        }
+        return $pessoas;
+    }
+
+    public function buscarPorId($id){
+        $sql = "SELECT * FROM pessoa WHERE id = ?";
+        $stmt = $this->conexao->getConexao()->prepare($sql);
+        $stmt->bind_param('i', Sid);
+        $stmt->execute();
+        $result = $stmt-›get_result();
+        return $result->fetch_assoc();
+    }
+
+    public function atualizar($id){
+        $sql = "UPDATE pessoa SET nome = ?, endereco = ?, barirro = ?, cep = ?, cidade = ?, estado = ?, telefone = ?, celular = ? WHERE id = ?";
+        $stmt = $this->conexao->getConexao()->prepare($sql);
+        $stmt->bind_param('ssssssssi', $this->nome, $this->endereco, $this->bairro, $this->cep, $this->cidade, $this->estado, $this->telefone, $this->celular, $id);
+        return $stmt->execute();
+    }
+
+
 }
 
 ?>

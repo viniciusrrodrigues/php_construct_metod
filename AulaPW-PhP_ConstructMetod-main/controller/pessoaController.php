@@ -26,6 +26,29 @@ class PessoaController{
         $this->pessoa->inserir(); //acessando o inserir atraves da pessoa
 
     }
-}
+
+    public function listar(){
+        return $this->pessoa->listar();
+    
+    }
+
+    public function buscarPorId ($id){
+        return $this->pessoa->buscarPorId($id);
+    }
+        public function atualizar($id){
+        $this->pessoa->setId($id);
+        $this->pessoa->setNome($_POST[ 'nome ' ]);
+        $this->pessoa->setEndereco($_POST[ ' endereco']);
+        $this->pessoa->setBairro($_POST['bairro']);
+        $this->pessoa->setCep($_POST[' cep' ]);
+        $this->pessoa->setCidade($_POST[ 'cidade']);
+        $this->pessoa->setEstado($_POST[ ' estado']);
+        $this->pessoa->setTelefone($_POST['telefone' ]);
+        $this->pessoa->setCelular ($_POST[ 'celular']);
+
+        $this->pessoa->atualizar($id);
+    }
+ }
+
 new PessoaController(); //cria o objeto "PessoaController" e inicializa 
 ?>
